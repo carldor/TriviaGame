@@ -498,10 +498,13 @@ function getQuestions(){
 
     $("#main_area").empty();
 
-    setQuestions();
     clock.startClock();
-    currentQuestion = getQuestions();
-    displayQuestion(currentQuestion); 
+    setTimeout( function(){
+     setQuestions();
+     currentQuestion = getQuestions();
+     displayQuestion(currentQuestion); 
+    },1000);
+
   });
 
   $(document).on ("click", ".start_over_button", function(){
@@ -514,9 +517,9 @@ function getQuestions(){
     $("#main_area").empty();
 
     clock.startClock();
-
     currentQuestion = getQuestions();
     displayQuestion(currentQuestion);
+
   });
 
   $(document).on ("click", ".answer", function(){
