@@ -1,0 +1,60 @@
+body{
+	background-image: url("../images/background.gif");
+	width: 100%; 
+    height: 100%; 
+    position: fixed; 
+    left: 0px; 
+    top: 0px; 
+    z-index: -1;
+}
+
+p{
+font-family: 'Indie Flower', cursive;
+}
+
+.container{
+	background-color: #F0FFF0;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 60%;
+    width: 80%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.game_title{
+	text-align: center;
+	font-family: 'Mogra', cursive;
+	color: #F9CB13;
+}
+
+.game_text{
+	text-align: center;
+	font-size: 1.5em;
+	font-family: 'Indie Flower', cursive;
+}
+
+.answer{
+	border: solid;
+	border-color: #8FBC8F;
+	border-width: 2px;
+	width: 50%;
+  	margin: 5px auto;
+}
+
+.start_button, .start_over_button{
+	border: solid;
+	border-color: #DDA0DD;
+	border-width: 2px;
+	width: 50%;
+  	margin: 5px auto;
+}
+
+.start_button:hover, .start_over_button:hover{
+	background-color: #D8BFD8;
+	border-color: #8FBC8F;
+}
+
+.answer:hover{
+	background-color: white;
+	border-color: #F9CB13;
+}
