@@ -341,8 +341,6 @@ function getQuestions(){
     randomPositition = Math.floor((Math.random() * size));
   }
 
-  console.log(randomPositition);
-  console.log(size);
   key = Object.keys(questions)[randomPositition];
   value = questions[key];
   delete questions[key];
@@ -351,7 +349,7 @@ function getQuestions(){
 }
 
   var clock = {
-    initialTime: 2,
+    initialTime: 30,
     time : 0,
     startClock: function() {
      clock.time = clock.initialTime;
@@ -380,7 +378,6 @@ function getQuestions(){
 
   function displayQuestion(question){
 
-    console.log(question);
     var num = 4;
     var ans = [];
 
@@ -412,10 +409,7 @@ function getQuestions(){
   }
 
   function rightAnswer(ans){
-    console.log(currentQuestion.a1);
-    console.log(ans);
     return currentQuestion.a1 === ans;
-
   }
 
   function checkAnswer(userInput){
@@ -426,16 +420,50 @@ function getQuestions(){
      numNotAnswered ++;
     }
 
-    console.log(numAnswered);
-
    if(numAnswered <= 10){ 
     if(rightAnswer(userInput)){
       numCorrect++;
+      clock.stopClock();
+      $("#question").html("<p><b>Correct!</b></p>");
+      $("#main_area").empty();
+
+      setTimeout(function(){
+       if(numAnswered < 10){
+        currentQuestion = getQuestions();
+        displayQuestion(currentQuestion);
+        clock.resetClock();
+        clock.startClock();
+       }
+      },5000);
+    }else if (userInput === ""){
+      clock.stopClock();
+      $("#question").html("<p><b>Out of Time!</b></p>");
+      $("#main_area").empty();
+
+      setTimeout(function(){
+       if(numAnswered < 10){
+        currentQuestion = getQuestions();
+        displayQuestion(currentQuestion);
+        clock.resetClock();
+        clock.startClock();
+       }
+      },5000);
     }else{
       numWrong++;
+      clock.stopClock();
+      console.log("it was wrong");
+      $("#question").html("<p><b>Nope!</b></p>");
+      $("#main_area").html("<p>The Correct Answer was: " + currentQuestion.a1 + "</p>");
+    
+      setTimeout(function(){
+       if(numAnswered < 10){
+        currentQuestion = getQuestions();
+        displayQuestion(currentQuestion);
+        clock.resetClock();
+        clock.startClock();
+       }
+      },5000);
     }
-    clock.resetClock();
-    clock.startClock();
    }
 
    if(numAnswered >= 10){
@@ -453,11 +481,6 @@ function getQuestions(){
      $("#main_area").append(startOverButton);
    }
 
-   if(numAnswered < 10){
-    currentQuestion = getQuestions();
-    displayQuestion(currentQuestion);
-   }
-
   }
 
    loadGame();
@@ -469,9 +492,7 @@ function getQuestions(){
     setQuestions();
     clock.startClock();
     currentQuestion = getQuestions();
-    displayQuestion(currentQuestion);
-
-    console.log(questions); 
+    displayQuestion(currentQuestion); 
   });
 
   $(document).on ("click", ".start_over_button", function(){
