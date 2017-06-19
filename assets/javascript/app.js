@@ -408,6 +408,13 @@ function getQuestions(){
     }
   }
 
+  function nextQuestion(){
+    currentQuestion = getQuestions();
+    displayQuestion(currentQuestion);
+    clock.resetClock();
+    clock.startClock();
+  }
+
   function rightAnswer(ans){
     return currentQuestion.a1 === ans;
   }
@@ -423,50 +430,51 @@ function getQuestions(){
    if(numAnswered <= 10){ 
     if(rightAnswer(userInput)){
       numCorrect++;
+
       clock.stopClock();
+
       $("#question").html("<p><b>Correct!</b></p>");
       $("#main_area").empty();
 
       setTimeout(function(){
        if(numAnswered < 10){
-        currentQuestion = getQuestions();
-        displayQuestion(currentQuestion);
-        clock.resetClock();
-        clock.startClock();
+        nextQuestion();
        }
-      },5000);
+      },3000);
+
     }else if (userInput === ""){
+
       clock.stopClock();
+
       $("#question").html("<p><b>Out of Time!</b></p>");
       $("#main_area").empty();
 
       setTimeout(function(){
        if(numAnswered < 10){
-        currentQuestion = getQuestions();
-        displayQuestion(currentQuestion);
-        clock.resetClock();
-        clock.startClock();
+        nextQuestion();
        }
-      },5000);
+      },3000);
+
     }else{
+
       numWrong++;
+
       clock.stopClock();
-      console.log("it was wrong");
+
       $("#question").html("<p><b>Nope!</b></p>");
       $("#main_area").html("<p>The Correct Answer was: " + currentQuestion.a1 + "</p>");
     
       setTimeout(function(){
        if(numAnswered < 10){
-        currentQuestion = getQuestions();
-        displayQuestion(currentQuestion);
-        clock.resetClock();
-        clock.startClock();
+        nextQuestion();
        }
-      },5000);
+      },3000);
+
     }
    }
 
-   if(numAnswered >= 10){
+   setTimeout(function(){
+    if(numAnswered >= 10){
      var startOverButton = $("<div>");
      startOverButton.text("Start Over?");
      startOverButton.addClass("game_text");
@@ -479,7 +487,8 @@ function getQuestions(){
      $("#main_area").append("<p>Incorrect Answers: " + numWrong + "</p>");
      $("#main_area").append("<p>Unanswered: " + numNotAnswered + "</p>");
      $("#main_area").append(startOverButton);
-   }
+    }
+   },3000);
 
   }
 
